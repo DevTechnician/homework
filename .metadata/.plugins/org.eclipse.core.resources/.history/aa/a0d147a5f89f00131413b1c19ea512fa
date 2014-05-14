@@ -1,0 +1,104 @@
+package com.uw.homework254eichmj2;
+
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.MotionEventCompat;
+import android.view.Menu;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
+import android.widget.Button;
+
+public class MainActivity extends FragmentActivity implements OnTouchListener {
+
+	Button redbutton;
+	Button blueButton;
+
+	private float mLastTouchX;
+	private float mLastTouchY;
+	private float mViewPosX;
+	private float mViewPosY;
+
+	private static final int INVALID_POINTER_ID = -1;
+	private int mActivePointerId = INVALID_POINTER_ID;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main_activity_test);
+
+		redbutton = (Button) findViewById(R.id.button1);
+		blueButton = (Button) findViewById(R.id.button2);
+
+		redbutton.setOnTouchListener(this);
+		blueButton.setOnTouchListener(this);
+
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+
+		final int action = MotionEventCompat.getActionMasked(event);
+		
+		
+
+		switch (event.getAction()) {
+		case MotionEvent.ACTION_DOWN:{
+			
+			if (v.getId() == redbutton.getId()) {
+				redbutton.setBackgroundResource(R.drawable.red_button_on_touch);
+			}
+			
+			
+			final int pointerIndex = MotionEventCompat.getActionIndex(event);
+			final float startX = MotionEventCompat.getX(event, pointerIndex);
+			final float startY = MotionEventCompat.getY(event, pointerIndex);
+			
+			mLastTouchX = startX;
+			mLastTouchY = startY;
+			
+			mActivePointerId = MotionEventCompat.getPointerId(event, pointerIndex);
+			
+			mViewPosX = v.getX();
+			mViewPosY = v.getY();
+
+			break;
+		}
+		case MotionEvent.ACTION_MOVE:{
+			
+			final int pointerIndex = MotionEventCompat.findPointerIndex(event, mActivePointerId);
+		
+			final float x = MotionEventCompat.getX(event, pointerIndex);
+	        final float y = MotionEventCompat.getY(event, pointerIndex);
+	            
+	        // Calculate the distance moved
+	        final float dx = x - mLastTouchX;
+	        final float dy = y - mLastTouchY;
+
+	        v.setX(mViewPosX += dx);
+	        v.setY(mViewPosY += dy);
+			
+		break;
+		}
+		case MotionEvent.ACTION_UP:{
+			
+			if (v.getId() == redbutton.getId()) {
+				redbutton.setBackgroundResource(R.drawable.red_button);
+			}
+			
+		}
+		default:
+			break;
+		}
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

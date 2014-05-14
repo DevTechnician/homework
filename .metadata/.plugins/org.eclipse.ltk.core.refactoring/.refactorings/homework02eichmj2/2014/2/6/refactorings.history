@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;DeleteTaskDialog.java&apos; to &apos;homework252eichmj252/src/com.uw.homework252eichmj&apos;&#x0D;&#x0A;- Original project: &apos;homework02eichmj2&apos;&#x0D;&#x0A;- Destination element: &apos;homework252eichmj252/src/com.uw.homework252eichmj&apos;&#x0D;&#x0A;- Original element: &apos;com.homework2eichmj2.uw.DeleteTaskDialog.java&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move compilation unit" destination="=homework252eichmj252/src&lt;com.uw.homework252eichmj" element1="/src&lt;com.homework2eichmj2.uw{DeleteTaskDialog.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" patterns="*" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1391551850569" units="1" version="1.0"/>
+</session>

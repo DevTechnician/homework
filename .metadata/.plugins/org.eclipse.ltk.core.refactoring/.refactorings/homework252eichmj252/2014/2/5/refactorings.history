@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;homework252eichmj252/res/layout/task_listview.xml&apos; to &apos;list.xml&apos;" description="Rename resource &apos;task_listview.xml&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="res/layout/task_listview.xml" name="list.xml" stamp="1391289026424" updateReferences="true"/>
+</session>

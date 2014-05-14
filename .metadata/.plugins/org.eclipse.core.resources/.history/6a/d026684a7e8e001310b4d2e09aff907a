@@ -1,0 +1,99 @@
+package com.uw.homework252eichmj;
+
+import android.app.ListFragment;
+import android.content.MutableContextWrapper;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.widget.SimpleCursorAdapter;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
+import android.widget.Adapter;
+import android.widget.ListView;
+
+public class TaskList_Fragment extends ListFragment {
+
+	static SimpleCursorAdapter adapter;
+	static Cursor mCursor;
+	static DataBaseUtility dbu;
+	static ListView taskList;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		dbu = new DataBaseUtility(getActivity());
+
+		mCursor = dbu.getAllTasks();
+
+		super.onCreate(savedInstanceState);
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+
+		return inflater.inflate(R.layout.list, null);
+
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onActivityCreated(savedInstanceState);
+
+		adapter = new SimpleCursorAdapter(getActivity(),
+				android.R.layout.simple_list_item_1, mCursor, new String[] {
+						dbu.COLUMN_TASK, dbu.COLUMN_TASK_DESCRIPTION,
+						dbu.COLUMN_ID }, new int[] { android.R.id.text1 });
+		setListAdapter(adapter);
+		taskList = this.getListView();
+
+	}
+
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		// TODO Auto-generated method stub
+
+		PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
+				.putInt("SELECTED_ROW", position).commit();
+
+		mCursor.moveToPosition(position);
+		int column_Id = mCursor
+				.getColumnIndexOrThrow(dbu.COLUMN_TASK_DESCRIPTION);
+
+		BusProvider.getInstance().post(
+				new OnTaskSelect(mCursor.getString(column_Id)));
+		super.onListItemClick(l, v, position, id);
+	}
+
+	static void changeListData() {
+
+		mCursor = dbu.getAllTasks();
+		mCursor.moveToFirst();
+		adapter.changeCursor(mCursor);
+
+	}
+
+	@Override
+	public void onResume() {
+		
+		int position = PreferenceManager.getDefaultSharedPreferences(
+				getActivity()).getInt("SELECTED_ROW", 0);
+		
+		mCursor.moveToPosition(position);
+		int column_Id = mCursor
+				.getColumnIndexOrThrow(dbu.COLUMN_TASK_DESCRIPTION);
+
+		BusProvider.getInstance().post(
+				new OnTaskSelect(mCursor.getString(column_Id)));
+		
+		// TODO Auto-generated method stub
+		super.onResume();
+	}
+	
+	
+
+}

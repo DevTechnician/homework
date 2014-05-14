@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/red_frame"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="top|left"
+    android:clickable="true" >
+
+    <Button
+        android:id="@+id/red_button"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="#ff0000"
+        android:clickable="true" />
+
+</FrameLayout>
